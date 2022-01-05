@@ -1,16 +1,19 @@
 from joueur import Joueur
 from random import randint
+import chess
 
 class Game:
     MODE_VS_IA = 0
     MODE_VS_JOUEUR = 1
-    COULEUR_BLANC = 'BLANC'
-    COULEUR_NOIR = 'NOIR' 
+    COULEUR_BLANC = chess.WHITE
+    COULEUR_NOIR = chess.BLACK 
 
     def __init__(self):
         self.joueur_1 = Joueur()
         self.joueur_2 = Joueur()
-        self.timer = 0
+        self.timer = 0 
+        self.to_play = Game.COULEUR_BLANC
+        self.board = chess.Board()
         
     def init_config(self):
         self.choix_mode()
@@ -67,3 +70,44 @@ class Game:
         self.timer = choix
 
             
+    def play(self):
+        if self.mode == Game.MODE_VS_JOUEUR:
+            self.play_vs_joueur()
+        elif self.mode == Game.MODE_VS_IA:
+            self.play_vs_ia()
+
+    def play_vs_ia(self):
+        pass
+
+    def play_vs_joueur(self):
+        end = False
+
+        while not end:
+            print(self.board)
+            self.print_to_play()
+            coup = coup = input('Jouez un coup \n')
+
+            while not self.is_legal(coup):
+                print('Coup invalide ou illégale.')
+                coup = input('Jouez un coup \n')
+            
+            self.board.push(chess.Move.from_uci(coup))
+            self.to_play = not self.to_play
+    
+    def is_legal(self, coup) :
+        try:
+            move = chess.Move.from_uci(coup)
+                    
+            if move in self.board.legal_moves:
+                return True
+            else:
+                return False
+            
+        except ValueError:
+            return False
+
+    def print_to_play(self):
+        if self.to_play == Game.COULEUR_BLANC:
+            print('\nTour des blancs')
+        else:
+            print("\nTour des noirs") 
