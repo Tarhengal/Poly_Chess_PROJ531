@@ -28,6 +28,13 @@ def startGame():
             white = True
             
         print(board)
+        print("\n")
+        
+        if isEnded():
+            showResult()
+            break
+            
+            
         
         
 def isLegal(coup) :
@@ -45,7 +52,15 @@ def isLegal(coup) :
        print("Coup Illégal !")
        return False
            
-        
+   
+def isEnded():
+    
+    
+    if board.outcome(claim_draw = True) != None:
+        return True
+    
+def showResult():
+    print(board.result())        
 
 startGame()
 
