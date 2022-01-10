@@ -1,6 +1,7 @@
 from joueur import Joueur
 from random import randint
 import chess
+import sys
 
 class Game:
     MODE_VS_IA = 0
@@ -8,12 +9,12 @@ class Game:
     COULEUR_BLANC = chess.WHITE
     COULEUR_NOIR = chess.BLACK 
 
-    def __init__(self):
+    def __init__(self, fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 4"):
         self.joueur_1 = Joueur()
         self.joueur_2 = Joueur()
         self.timer = 0 
         self.to_play = Game.COULEUR_BLANC
-        self.board = chess.Board()
+        self.board = chess.Board(fen)
         
     def init_config(self):
         self.choix_mode()
@@ -63,10 +64,10 @@ class Game:
 
     def choix_temps(self):
         print("============ TEMPS ============")
-        choix = input('Limite de temps : (nombre de minutes/0) : ')
+        choix = input('Limite de temps : (nombre de minutes/0)  ')
         while not choix.isnumeric():
             print('Erreur.')
-            choix = input('Limite de temps : (nombre de minutes/0) : ')
+            choix = input('Limite de temps : (nombre de minutes/0)  ')
         self.timer = choix
 
             
@@ -80,20 +81,36 @@ class Game:
         pass
 
     def play_vs_joueur(self):
-        end = False
+        play = True
+        print(self.board)
+        while play:
+            print(self.get_to_play())
 
-        while not end:
-            print(self.board)
-            self.print_to_play()
-            coup = coup = input('Jouez un coup \n')
-
+            coup = input('Jouez un coup \n')
             while not self.is_legal(coup):
                 print('Coup invalide ou illégale.')
                 coup = input('Jouez un coup \n')
             
             self.board.push(chess.Move.from_uci(coup))
+            print(self.board)
+
             self.to_play = not self.to_play
-    
+            if self.has_ended():
+                print(self.get_result())
+                play = False
+        self.rejouer()
+        
+    def rejouer(self):
+        choix = input('Rejouer ? (o/n) : ')
+        while choix != 'o' and choix != 'n':
+            print('Erreur.')
+            choix = input('Rejouer ? (o/n) : ')
+        if choix == 'o':
+            self.init_config()
+            self.play()
+        else:
+            sys.exit()
+
     def is_legal(self, coup) :
         try:
             move = chess.Move.from_uci(coup)
@@ -106,8 +123,24 @@ class Game:
         except ValueError:
             return False
 
-    def print_to_play(self):
-        if self.to_play == Game.COULEUR_BLANC:
-            print('\nTour des blancs')
+    def has_ended(self): 
+        if self.board.outcome(claim_draw = True) != None:
+            return True
+        return False
+
+    def get_result(self):
+        outcome = self.board.outcome(claim_draw = True)
+        if outcome.winner != None:
+            if outcome.winner == Game.COULEUR_BLANC:
+                return "Victoire des blancs"
+            else:
+                return "Victoire des noirs"
         else:
-            print("\nTour des noirs") 
+            return 'Match nul'
+
+
+    def get_to_play(self):
+        if self.to_play == Game.COULEUR_BLANC:
+            return '\nTour des blancs'
+        else:
+            return "\nTour des noirs"
