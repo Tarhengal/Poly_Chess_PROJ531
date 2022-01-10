@@ -9,7 +9,7 @@ class Game:
     COULEUR_BLANC = chess.WHITE
     COULEUR_NOIR = chess.BLACK 
 
-    def __init__(self, fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 4"):
+    def __init__(self, fen = chess.STARTING_FEN):
         self.joueur_1 = Joueur()
         self.joueur_2 = Joueur()
         self.timer = 0 
