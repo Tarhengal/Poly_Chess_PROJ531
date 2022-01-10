@@ -1,6 +1,9 @@
 import chess
+import chess.polyglot
+import random
+import time
 
-board = chess.Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 4")
+board = chess.Board()
 print(board)
 
 def startGame():
@@ -10,7 +13,38 @@ def startGame():
 
     while isGameOn:
         
-        coup = input('Jouez un coup \n')
+  
+       
+        with chess.polyglot.open_reader('../data/performance.bin') as reader:
+                        
+            entries = []
+            
+            for entry in reader.find_all(board):
+                entries.append(entry.move)
+            
+            if entries:                          
+                entry = random.randint(0, len(entries) - 1)
+                coup = entries[entry]
+            else:
+                
+                l = []
+                
+                for moves in board.legal_moves:
+                    l.append(moves)
+                
+                r = random.randint(0, len(l) - 1)
+                
+                coup = l[r]
+                print("MEILLEUR COUP")
+                
+
+            print(coup)
+            
+            board.push(chess.Move.from_uci(str(coup)))
+
+        
+        
+        """  coup = input('Jouez un coup \n')
         
         if white == True:
             
@@ -25,8 +59,12 @@ def startGame():
             while isLegal(coup) != True : 
                 coup = input('Jouez un coup \n')
             board.push(chess.Move.from_uci(coup))
-            white = True
-            
+            white = True """
+         
+        time.sleep(0.01)
+        print("\n")    
+        print(board.fen())
+        print("\n")  
         print(board)
         print("\n")
         
