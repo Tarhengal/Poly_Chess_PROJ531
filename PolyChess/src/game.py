@@ -2,6 +2,11 @@ from joueur import Joueur
 from random import randint
 import chess
 import sys
+import chess.svg
+
+
+from IPython.display import SVG, display_svg
+
 
 class Game:
     MODE_VS_IA = 0
@@ -9,7 +14,7 @@ class Game:
     COULEUR_BLANC = chess.WHITE
     COULEUR_NOIR = chess.BLACK 
 
-    def __init__(self, fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 4"):
+    def __init__(self, fen = chess.STARTING_FEN):
         self.joueur_1 = Joueur()
         self.joueur_2 = Joueur()
         self.timer = 0 
@@ -44,21 +49,21 @@ class Game:
                 print('Erreur.')
                 choix = input('Joueur 1, blanc ou noir ? (b/n) : ')
             if choix == 'b':
-                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir \n")
+                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir")
                 self.joueur_1.set_couleur(Game.COULEUR_BLANC)
                 self.joueur_2.set_couleur(Game.COULEUR_NOIR)
             elif choix == 'n':
-                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc \n")
+                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc")
                 self.joueur_1.set_couleur(Game.COULEUR_NOIR)
                 self.joueur_2.set_couleur(Game.COULEUR_BLANC)
         elif choix == 'h':
             r = randint(0,1)
             if r == 0:
-                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir \n")
+                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir")
                 self.joueur_1.set_couleur(Game.COULEUR_BLANC)
                 self.joueur_2.set_couleur(Game.COULEUR_NOIR)
             else:
-                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc \n")
+                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc")
                 self.joueur_1.set_couleur(Game.COULEUR_NOIR)
                 self.joueur_2.set_couleur(Game.COULEUR_BLANC)
 
@@ -82,17 +87,19 @@ class Game:
 
     def play_vs_joueur(self):
         play = True
-        print(self.board)
+        display_svg(SVG(chess.svg.board(board=self.board,size=400)))
         while play:
             print(self.get_to_play())
 
-            coup = input('Jouez un coup \n')
+            coup = input('Veuillez jouer un coup \n')
             while not self.is_legal(coup):
-                print('Coup invalide ou illégale.')
-                coup = input('Jouez un coup \n')
+                print('Coup invalide ou illégal.')
+                coup = input('Veuillez jouer un coup \n')
             
             self.board.push(chess.Move.from_uci(coup))
-            print(self.board)
+            
+            print(chr(27) + "[2J")
+            display_svg(SVG(chess.svg.board(board=self.board,size=400)))
 
             self.to_play = not self.to_play
             if self.has_ended():
@@ -141,6 +148,6 @@ class Game:
 
     def get_to_play(self):
         if self.to_play == Game.COULEUR_BLANC:
-            return '\nTour des blancs'
+            return '\nC\'est au tour des blanc de jouer.'
         else:
-            return "\nTour des noirs"
+            return '\nC\'est au tour des noirs de jouer.'
