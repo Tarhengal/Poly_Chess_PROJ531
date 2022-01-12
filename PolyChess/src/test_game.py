@@ -2,6 +2,9 @@ import chess
 import chess.polyglot
 import random
 import time
+import chess.svg
+
+from IPython.display import SVG, display_svg
 
 board = chess.Board()
 print(board)
@@ -58,20 +61,23 @@ def startGame():
             
             while isLegal(coup) != True : 
                 coup = input('Jouez un coup \n')
-            board.push(chess.Move.from_uci(coup))
-            white = True """
+            board.push(chess.Move.from_uci(coup))"""
+        white = True
          
         time.sleep(0.01)
         print("\n")    
-        print(board.fen())
-        print("\n")  
+        #print(board.fen())
+        print("\n") 
         print(board)
+        
         print("\n")
         
         if isEnded():
+            display_svg(SVG(chess.svg.board(board=board,size=400)))
             showResult()
             break
-            
+        
+           
             
         
         
@@ -98,7 +104,13 @@ def isEnded():
         return True
     
 def showResult():
-    print(board.result())        
+    
+    if board.result() == "1-0":
+        print("Victoire des blancs")
+    elif board.result() == "0-1":
+        print("Victoire des noirs")  
+    else:
+        print("Egalité")
 
 startGame()
 
