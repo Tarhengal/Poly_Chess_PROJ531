@@ -44,21 +44,21 @@ class Game:
                 print('Erreur.')
                 choix = input('Joueur 1, blanc ou noir ? (b/n) : ')
             if choix == 'b':
-                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir")
+                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir \n")
                 self.joueur_1.set_couleur(Game.COULEUR_BLANC)
                 self.joueur_2.set_couleur(Game.COULEUR_NOIR)
             elif choix == 'n':
-                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc")
+                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc \n")
                 self.joueur_1.set_couleur(Game.COULEUR_NOIR)
                 self.joueur_2.set_couleur(Game.COULEUR_BLANC)
         elif choix == 'h':
             r = randint(0,1)
             if r == 0:
-                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir")
+                print("Joueur 1 -> Blanc \nJoueur 2 -> Noir \n")
                 self.joueur_1.set_couleur(Game.COULEUR_BLANC)
                 self.joueur_2.set_couleur(Game.COULEUR_NOIR)
             else:
-                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc")
+                print("Joueur 1 -> Noir \nJoueur 2 -> Blanc \n")
                 self.joueur_1.set_couleur(Game.COULEUR_NOIR)
                 self.joueur_2.set_couleur(Game.COULEUR_BLANC)
 
