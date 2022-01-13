@@ -19,8 +19,14 @@
 - Passer en mode IA
     - Analyser une séquence de coups
         - Algorithmes
+            - Alpha beta pruning
+            - Negamax 
+            - quiescence
     - Évaluer la position
         - Fonction d'évaluation
+            - Avantage matériel
+            - Tableaux de positions pièces
+            - Controle du centre 
     - Choisir meilleur coup
 - Vérifications
     - Match nul
@@ -35,3 +41,4 @@
 ## Fin de partie
 - Annoncer gagnant
 - Rejouer (Retour au choix) ou quitter
+
