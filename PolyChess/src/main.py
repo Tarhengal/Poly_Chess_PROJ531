@@ -1,4 +1,3 @@
-import chess
 from game import Game
 
 

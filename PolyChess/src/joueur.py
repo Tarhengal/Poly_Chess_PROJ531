@@ -4,3 +4,6 @@ class Joueur:
 
     def set_couleur(self, couleur):
         self.couleur = couleur
+        
+    def get_couleur(self):
+        return self.couleur

@@ -1,9 +1,9 @@
 from joueur import Joueur
 from random import randint
+from engine import Engine
 import chess
 import sys
 import chess.svg
-
 
 from IPython.display import SVG, display_svg
 
@@ -23,7 +23,6 @@ class Game:
         
     def init_config(self):
         self.choix_mode()
-        self.choix_temps()
         self.choix_couleur()
         
     def choix_mode(self):
@@ -66,15 +65,6 @@ class Game:
                 print("Joueur 1 -> Noir \nJoueur 2 -> Blanc")
                 self.joueur_1.set_couleur(Game.COULEUR_NOIR)
                 self.joueur_2.set_couleur(Game.COULEUR_BLANC)
-
-    def choix_temps(self):
-        print("============ TEMPS ============")
-        choix = input('Limite de temps : (nombre de minutes/0)  ')
-        while not choix.isnumeric():
-            print('Erreur.')
-            choix = input('Limite de temps : (nombre de minutes/0)  ')
-        self.timer = choix
-
             
     def play(self):
         if self.mode == Game.MODE_VS_JOUEUR:
@@ -83,11 +73,58 @@ class Game:
             self.play_vs_ia()
 
     def play_vs_ia(self):
-        pass
+       display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+        
+       play = True
+       bot = Engine()
+              
+       if self.joueur_2.get_couleur() == self.COULEUR_BLANC:
+                  
+               
+            while play:
+                
+                bot.play(self.board)                              
+                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+                
+                coup = input('Veuillez jouer un coup \n')
+                while not self.is_legal(coup):
+                    print('Coup invalide ou illégal.')
+                    coup = input('Veuillez jouer un coup \n')
+                
+                self.board.push(chess.Move.from_uci(coup))
+                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+                
+                if self.has_ended():
+                    print(self.get_result())
+                    play = False              
+       else:   
+       
+           while play:
+                
+               coup = input('Veuillez jouer un coup \n')
+               while not self.is_legal(coup):
+                   print('Coup invalide ou illégal.')
+                   coup = input('Veuillez jouer un coup \n')
+               
+               self.board.push(chess.Move.from_uci(coup))
+               display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+               
+               bot.play(self.board)  
+               display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+                             
+               
+               if self.has_ended():
+                   print(self.get_result())
+                   play = False
+       
+       self.rejouer()
+           
+       
 
     def play_vs_joueur(self):
         play = True
         display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+        
         while play:
             print(self.get_to_play())
 
@@ -97,7 +134,6 @@ class Game:
                 coup = input('Veuillez jouer un coup \n')
             
             self.board.push(chess.Move.from_uci(coup))
-            
             print(chr(27) + "[2J")
             display_svg(SVG(chess.svg.board(board=self.board,size=400)))
 
@@ -108,6 +144,9 @@ class Game:
         self.rejouer()
         
     def rejouer(self):
+        
+        self.board = chess.Board()
+        
         choix = input('Rejouer ? (o/n) : ')
         while choix != 'o' and choix != 'n':
             print('Erreur.')

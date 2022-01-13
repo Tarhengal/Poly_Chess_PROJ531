@@ -1,7 +1,10 @@
 import chess
+import chess.polyglot
 import math
+import random
 
 class Engine:
+        
     def __init__(self):
         self.num_positions = 0
 
@@ -343,6 +346,31 @@ class Engine:
         num_legal_moves_opp = board_copy.legal_moves.count()
         
         return num_legal_moves - num_legal_moves_opp
+    
+    
+    def play(self, board):
+               
+        with chess.polyglot.open_reader('../data/performance.bin') as reader:
+                           
+            entries = []
+            
+            for entry in reader.find_all(board):
+                entries.append(entry.move)
+            
+            
+            if entries:                          
+                entry = random.randint(0, len(entries) - 1)
+                coup = entries[entry]
+                board.push(chess.Move.from_uci(str(coup)))
+            else:  
+                               
+                coup = self.select_move(board, 3)
+                
+                board.push(chess.Move.from_uci(str(coup)))
+            
+
+                
+
                 
 
 
