@@ -364,9 +364,11 @@ class Engine:
                 board.push(chess.Move.from_uci(str(coup)))
             else:  
                                
-                coup = self.select_move(board, 3)
+                coup = self.select_move(board, 1)
                 
-                board.push(chess.Move.from_uci(str(coup)))
+                if coup:                                         
+                    board.push(chess.Move.from_uci(str(coup)))
+                     
             
 
                 
