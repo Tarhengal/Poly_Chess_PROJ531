@@ -7,7 +7,14 @@ PolyChess est un moteur d'échecs développé par les étudiants d'IDU de Polyte
 - Affichage graphique
 - Mode JcJ
     - Choix couleur
-- Mode vs IA
+- Mode vs IA, sont pris en compte :
+    - Avantage matériel
+    - Pions passés
+    - Pions doublés
+    - Pions isolés
+    - Pions bloqués
+    - Tables de positions de pièces
+    - Mobilité
 - Documentation
 
 # Installation 
@@ -39,6 +46,31 @@ L'organisations du projet est la suivante :
 - **tests** : fichiers de tests
 
 Pour lancer une partie, éxécuter `src/main.py`.
+
+# Glossaire
+
+Quelques termes du sujet qui se rapportent à la programmation de moteur d'échecs :
+
+#### **Bibliothèque d'ouverture** :
+Document contenant un grand nombre de suites de coups et de réponses possibles réparties en ouvertures.
+
+#### **Fonction d'évaluation** :
+Fonction permettant d'associer un score à une position de l'échéquier celon des critères à determiner.
+
+#### **Negamax** :
+Implémentation simplifiée de l'agorithme MinMax
+
+#### **AlphaBeta** :
+Algorithme d'optimisation de parcours d'arbre de recherche 
+
+#### **FEN** : 
+format de notation d'un échéquier sous forme d'une string
+
+#### **SAN** :
+notation algébrique d'un coup
+
+#### **UCI** : 
+notation d'un coup sous la forme case de départ -> case d'arrivée (e.g : a2a3)
 
 
 
