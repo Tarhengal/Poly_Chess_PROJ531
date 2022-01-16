@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module engine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>engine</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:e%3A%5Cwilliam%5Cpolytech%5Cchess%5Cpoly_chess_proj531%5Cpolychess%5Csrc%5Cengine.py">e:\william\polytech\chess\poly_chess_proj531\polychess\src\engine.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="chess.html">chess</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="engine.html#Engine">Engine</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Engine">class <strong>Engine</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Moteur&nbsp;de&nbsp;jeu<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+num_positions&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre&nbsp;de&nbsp;positions&nbsp;évaluées<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Engine-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="Engine-alphaBeta"><strong>alphaBeta</strong></a>(self, board, alpha, beta, depth)</dt><dd><tt>A&nbsp;partir&nbsp;du&nbsp;board&nbsp;actuel,&nbsp;évalue&nbsp;les&nbsp;différentes&nbsp;positions&nbsp;possibles<br>
+pour&nbsp;la&nbsp;profondeur&nbsp;donnée&nbsp;à&nbsp;l'aide&nbsp;de&nbsp;l'algorithme&nbsp;alpha&nbsp;beta&nbsp;pruning<br>
+et&nbsp;negamax.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;le&nbsp;board&nbsp;actuel<br>
+alpha&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doit&nbsp;être&nbsp;initialisé&nbsp;à&nbsp;-&nbsp;l'infini<br>
+beta&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doit&nbsp;être&nbsp;initialisé&nbsp;à&nbsp;+&nbsp;l'infini<br>
+depth&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profondeur&nbsp;de&nbsp;recherche&nbsp;en&nbsp;ply<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+alpha&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;La&nbsp;meilleure&nbsp;évalutation</tt></dd></dl>
+
+<dl><dt><a name="Engine-check_passed_pawns"><strong>check_passed_pawns</strong></a>(self, board, square, file_index, files, colour)</dt></dl>
+
+<dl><dt><a name="Engine-evaluate"><strong>evaluate</strong></a>(self, board)</dt><dd><tt>Attribue&nbsp;un&nbsp;score&nbsp;à&nbsp;une&nbsp;position&nbsp;en&nbsp;fonction<br>
+de&nbsp;différents&nbsp;facteurs.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+score&nbsp;:&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;score&nbsp;de&nbsp;la&nbsp;position</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_blocked_pawns"><strong>get_blocked_pawns</strong></a>(self, board, colour)</dt><dd><tt>Retourne&nbsp;le&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;bloqués<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+colour&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;coté&nbsp;pour&nbsp;lequel&nbsp;on&nbsp;veut&nbsp;connaitre&nbsp;les&nbsp;pions<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+num_blocked_pawns&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;bloqués</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_doubled_pawns"><strong>get_doubled_pawns</strong></a>(self, board, colour)</dt><dd><tt>Retourne&nbsp;le&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;doublés<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+colour&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;coté&nbsp;pour&nbsp;lequel&nbsp;on&nbsp;veut&nbsp;connaitre&nbsp;les&nbsp;pions<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+num_doubled_pawns&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;doublés</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_isolated_pawns"><strong>get_isolated_pawns</strong></a>(self, board, colour)</dt><dd><tt>Retourne&nbsp;le&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;isolés<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+colour&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;coté&nbsp;pour&nbsp;lequel&nbsp;on&nbsp;veut&nbsp;connaitre&nbsp;les&nbsp;pions<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+num_isolated_pawns&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;isolés</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_material_score"><strong>get_material_score</strong></a>(self, board)</dt><dd><tt>Attribue&nbsp;un&nbsp;score&nbsp;à&nbsp;une&nbsp;position&nbsp;en&nbsp;fonction<br>
+du&nbsp;nombre&nbsp;de&nbsp;pièces.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+materiel_score&nbsp;:&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;score&nbsp;matériel&nbsp;de&nbsp;la&nbsp;position</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_mobility_score"><strong>get_mobility_score</strong></a>(self, board)</dt><dd><tt>Retourne&nbsp;le&nbsp;score&nbsp;de&nbsp;mobilité&nbsp;d'une&nbsp;position&nbsp;(nombre&nbsp;de&nbsp;coups<br>
+possibles&nbsp;)<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+mobility_score&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;score&nbsp;de&nbsp;mobilité</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_passed_pawns"><strong>get_passed_pawns</strong></a>(self, board, colour)</dt><dd><tt>Retourne&nbsp;le&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;passés<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+colour&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;coté&nbsp;pour&nbsp;lequel&nbsp;on&nbsp;veut&nbsp;connaitre&nbsp;les&nbsp;pions<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+num_passed_pawns&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nombre&nbsp;de&nbsp;pions&nbsp;passés</tt></dd></dl>
+
+<dl><dt><a name="Engine-get_position_score"><strong>get_position_score</strong></a>(self, board)</dt><dd><tt>Attribue&nbsp;un&nbsp;score&nbsp;à&nbsp;une&nbsp;position&nbsp;en&nbsp;fonction<br>
+de&nbsp;la&nbsp;position&nbsp;des&nbsp;pièces.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;la&nbsp;position&nbsp;à&nbsp;évaluer<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+position_score&nbsp;:&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;score&nbsp;de&nbsp;la&nbsp;position</tt></dd></dl>
+
+<dl><dt><a name="Engine-play"><strong>play</strong></a>(self, board)</dt><dd><tt>Joue&nbsp;les&nbsp;coups&nbsp;d'une&nbsp;bibliothèque&nbsp;d'ouverture&nbsp;pendant&nbsp;le&nbsp;début<br>
+de&nbsp;partie&nbsp;(i.e&nbsp;:&nbsp;jusqu'à&nbsp;la&nbsp;fin&nbsp;de&nbsp;l'ouverture&nbsp;ou&nbsp;coup&nbsp;incohérent<br>
+de&nbsp;l'adversaire),&nbsp;puis&nbsp;joue&nbsp;le&nbsp;meilleur&nbsp;coup&nbsp;trouvé.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;le&nbsp;board&nbsp;actuel</tt></dd></dl>
+
+<dl><dt><a name="Engine-search_simplified"><strong>search_simplified</strong></a>(self, board, depth)</dt><dd><tt>A&nbsp;partir&nbsp;du&nbsp;board&nbsp;actuel,&nbsp;évalue&nbsp;les&nbsp;différentes&nbsp;positions&nbsp;possibles<br>
+pour&nbsp;la&nbsp;profondeur&nbsp;donnée.&nbsp;N'est&nbsp;pas&nbsp;optimisée.<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;le&nbsp;board&nbsp;actuel<br>
+depth&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profondeur&nbsp;de&nbsp;recherche&nbsp;en&nbsp;ply<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+best_move&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;meilleur&nbsp;coup&nbsp;trouvé&nbsp;au&nbsp;format&nbsp;UCI</tt></dd></dl>
+
+<dl><dt><a name="Engine-select_move"><strong>select_move</strong></a>(self, board, depth)</dt><dd><tt>A&nbsp;partir&nbsp;du&nbsp;board&nbsp;actuel,&nbsp;effectue&nbsp;une&nbsp;recherche&nbsp;du&nbsp;meilleur&nbsp;coup<br>
+&nbsp;<br>
+Parameters:<br>
+-----------<br>
+board&nbsp;:&nbsp;chess.Board<br>
+&nbsp;&nbsp;&nbsp;&nbsp;le&nbsp;board&nbsp;actuel<br>
+depth&nbsp;:&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profondeur&nbsp;de&nbsp;recherche&nbsp;en&nbsp;ply<br>
+&nbsp;<br>
+Returns:<br>
+--------<br>
+best_move&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Le&nbsp;meilleur&nbsp;coup&nbsp;trouvé&nbsp;au&nbsp;format&nbsp;UCI</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

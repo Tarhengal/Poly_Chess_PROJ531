@@ -83,15 +83,18 @@ class Game:
                
             while play:
                 
-                bot.play(self.board)                              
-                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
                 
+                bot.play(self.board)    
+                self.to_play = not self.to_play                         
+                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
+                print(self.get_to_play())
                 coup = input('Veuillez jouer un coup \n')
                 while not self.is_legal(coup):
                     print('Coup invalide ou illégal.')
                     coup = input('Veuillez jouer un coup \n')
                 
                 self.board.push(chess.Move.from_uci(coup))
+                self.to_play = not self.to_play 
                 display_svg(SVG(chess.svg.board(board=self.board,size=400)))
                 
                 if self.has_ended():
@@ -100,7 +103,7 @@ class Game:
        else:   
        
            while play:
-                
+               print(self.get_to_play())
                coup = input('Veuillez jouer un coup \n')
                while not self.is_legal(coup):
                    print('Coup invalide ou illégal.')
@@ -109,7 +112,9 @@ class Game:
                self.board.push(chess.Move.from_uci(coup))
                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
                
+               self.to_play = not self.to_play
                bot.play(self.board)  
+               self.to_play = not self.to_play 
                display_svg(SVG(chess.svg.board(board=self.board,size=400)))
                              
                

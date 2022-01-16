@@ -4,6 +4,14 @@ import math
 import random
 
 class Engine:
+    """
+    Moteur de jeu
+
+    Attributes
+    ----------
+    num_positions : int
+        nombre de positions évaluées
+    """
         
     def __init__(self):
         self.num_positions = 0
@@ -11,6 +19,22 @@ class Engine:
     #TO DO QUIESCENCE
 
     def select_move(self, board, depth):
+        """
+        A partir du board actuel, effectue une recherche du meilleur coup
+
+        Parameters:
+        -----------
+        board : chess.Board
+            le board actuel
+        depth : int
+            profondeur de recherche en ply
+
+        Returns:
+        --------
+        best_move : str
+            Le meilleur coup trouvé au format UCI
+
+        """
         best_move = chess.Move.null()
         best_eval = -math.inf
         alpha = -math.inf
@@ -27,6 +51,28 @@ class Engine:
         return best_move
 
     def alphaBeta(self, board, alpha, beta, depth):
+        """
+        A partir du board actuel, évalue les différentes positions possibles
+        pour la profondeur donnée à l'aide de l'algorithme alpha beta pruning
+        et negamax.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            le board actuel
+        alpha : int
+            doit être initialisé à - l'infini
+        beta : int
+            doit être initialisé à + l'infini
+        depth : int
+            profondeur de recherche en ply
+
+        Returns:
+        --------
+        alpha : int
+            La meilleure évalutation
+
+        """
         if depth == 0:
             return self.evaluate(board)
 
@@ -51,6 +97,23 @@ class Engine:
         return alpha 
 
     def search_simplified(self, board, depth):
+        """
+        A partir du board actuel, évalue les différentes positions possibles
+        pour la profondeur donnée. N'est pas optimisée.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            le board actuel
+        depth : int
+            profondeur de recherche en ply
+
+        Returns:
+        --------
+        best_move : str
+            Le meilleur coup trouvé au format UCI
+
+        """
         if depth == 0:
             return self.evaluate(board)
         if board.legal_moves.count() == 0:
@@ -71,6 +134,21 @@ class Engine:
         return best_eval 
 
     def evaluate(self, board):
+        """
+        Attribue un score à une position en fonction
+        de différents facteurs.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+      
+        Returns:
+        --------
+        score : float
+            Le score de la position
+
+        """
         
         malus_weight = 0.5
         mobility_weight = 0.1
@@ -88,6 +166,21 @@ class Engine:
 
         
     def get_material_score(self, board):
+        """
+        Attribue un score à une position en fonction
+        du nombre de pièces.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+      
+        Returns:
+        --------
+        materiel_score : float
+            Le score matériel de la position
+
+        """
         wp = len(board.pieces(chess.PAWN, chess.WHITE))
         bp = len(board.pieces(chess.PAWN, chess.BLACK))
         wn = len(board.pieces(chess.KNIGHT, chess.WHITE))
@@ -130,6 +223,21 @@ class Engine:
         return materiel_score
 
     def get_position_score(self, board):
+        """
+        Attribue un score à une position en fonction
+        de la position des pièces.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+      
+        Returns:
+        --------
+        position_score : float
+            Le score de la position
+
+        """
 
         pawn_table = [
             0, 0, 0, 0, 0, 0, 0, 0,
@@ -218,6 +326,22 @@ class Engine:
 
     
     def get_doubled_pawns(self, board, colour):
+        """
+        Retourne le nombre de pions doublés
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+        colour :
+            Le coté pour lequel on veut connaitre les pions
+      
+        Returns:
+        --------
+        num_doubled_pawns : int
+            nombre de pions doublés
+
+        """
         files = []
         for file_index in range(8):
             files.append( [] )
@@ -237,6 +361,22 @@ class Engine:
         return num_doubled_pawns
 
     def get_isolated_pawns(self, board, colour):
+        """
+        Retourne le nombre de pions isolés
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+        colour :
+            Le coté pour lequel on veut connaitre les pions
+      
+        Returns:
+        --------
+        num_isolated_pawns : int
+            nombre de pions isolés
+
+        """
         files = []
         for file_index in range(8):
             files.append( [] )
@@ -264,6 +404,22 @@ class Engine:
         return num_isolated_pawns
 
     def get_blocked_pawns(self, board, colour):
+        """
+        Retourne le nombre de pions bloqués
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+        colour :
+            Le coté pour lequel on veut connaitre les pions
+      
+        Returns:
+        --------
+        num_blocked_pawns : int
+            nombre de pions bloqués
+
+        """
         num_blocked_pawns = 0
 
         for file_index in range(8):
@@ -300,6 +456,22 @@ class Engine:
         return num_blocked_pawns
 
     def get_passed_pawns(self, board, colour):
+        """
+        Retourne le nombre de pions passés
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+        colour :
+            Le coté pour lequel on veut connaitre les pions
+      
+        Returns:
+        --------
+        num_passed_pawns : int
+            nombre de pions passés
+
+        """
         files = []
         for file_index in range(8):
             files.append( [] )
@@ -340,6 +512,21 @@ class Engine:
             
         
     def get_mobility_score(self, board):
+        """
+        Retourne le score de mobilité d'une position (nombre de coups
+        possibles )
+
+        Parameters:
+        -----------
+        board : chess.Board
+            la position à évaluer
+      
+        Returns:
+        --------
+        mobility_score : int
+            score de mobilité
+
+        """
         num_legal_moves = board.legal_moves.count()
         board_copy = board.copy()
         board_copy.turn = not board_copy.turn
@@ -349,6 +536,17 @@ class Engine:
     
     
     def play(self, board):
+        """
+        Joue les coups d'une bibliothèque d'ouverture pendant le début
+        de partie (i.e : jusqu'à la fin de l'ouverture ou coup incohérent
+        de l'adversaire), puis joue le meilleur coup trouvé.
+
+        Parameters:
+        -----------
+        board : chess.Board
+            le board actuel
+
+        """
                
         with chess.polyglot.open_reader('../data/performance.bin') as reader:
                            
